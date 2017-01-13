@@ -34,74 +34,74 @@ public class Solution {
 
 		System.out.println(getSum(ele1.getList(), 1));
 	}
-	
-	
-	
-	
+
+
+
+
 	// public long sum(String str) {
-		//     /// Edge case
-		//     if (str == null) {
-		//         return 0;
-		//     }
-		// 
-		//     /// Translate string into nested integer
-		//     //<NestedInteger> list = getList(str);
-		// 
-		//     /// Divide and conquer
-		//     return getSum(list, 1);
-		// }
+	//     /// Edge case
+	//     if (str == null) {
+	//         return 0;
+	//     }
+	// 
+	//     /// Translate string into nested integer
+	//     //<NestedInteger> list = getList(str);
+	// 
+	//     /// Divide and conquer
+	//     return getSum(list, 1);
+	// }
 
-		private static long getSum(List<NestedInteger> list, int level) {
-			/// Base case
-			if (list == null) {
-				return 0;
+	private static long getSum(List<NestedInteger> list, int level) {
+		/// Base case
+		if (list == null) {
+			return 0;
+		}
+
+		int result = 0;
+
+		for (NestedInteger ele : list) {
+			if (ele.isInteger()) {
+				result += (long) ele.getValue() * level;
+			} else {
+				result += getSum(ele.getList(), level + 1);
 			}
+		}
 
-			int result = 0;
+		return result;
+	}
 
-			for (NestedInteger ele : list) {
-				if (ele.isInteger()) {
-					result += (long) ele.getValue() * level;
-				} else {
-					result += getSum(ele.getList(), level + 1);
-				}
-			}
 
-			return result;
+
+
+	public class NestedInteger {
+		/// Field
+		private int val;
+		private List<NestedInteger> list;
+
+		/// Constructor
+		public NestedInteger(int val) {
+			this.val = val;
+			this.list = null;
+		}
+
+		public NestedInteger(List<NestedInteger> list) {
+			this.list = list;
 		}
 
 
-
-
-		public class NestedInteger {
-			/// Field
-			private int val;
-			private List<NestedInteger> list;
-
-			/// Constructor
-			public NestedInteger(int val) {
-				this.val = val;
-				this.list = null;
-			}
-
-			public NestedInteger(List<NestedInteger> list) {
-				this.list = list;
-			}
-
-
-			public boolean isInteger() {
-				return list == null;
-			}
-
-			public int getValue() {
-				return this.val;
-			}
-
-			public List<NestedInteger> getList() {
-				if (this.list != null) {
-					return this.list;
-				}
-				return null;
-			}
+		public boolean isInteger() {
+			return list == null;
 		}
+
+		public int getValue() {
+			return this.val;
+		}
+
+		public List<NestedInteger> getList() {
+			if (this.list != null) {
+				return this.list;
+			}
+			return null;
+		}
+	}
 }
